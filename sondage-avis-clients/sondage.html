@@ -1,0 +1,284 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=1080">
+<title>Votre avis nous intéresse</title>
+<!--
+  Mini-sondage clients – Nouvelle PSP Côte d’Ivoire
+  Format : 1080 × 1350 px (export PNG via render.cjs)
+  Logo : déposer le fichier officiel, sans retouche, dans assets/logo-officiel.png ;
+  il est inséré automatiquement à l’export. Sans fichier, aucun logo n’est affiché.
+-->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Inter+Tight:wght@800&display=swap">
+<style>
+  :root {
+    /* Palette provisoire, à aligner sur la charte graphique officielle */
+    --vert: #0A5C4A;
+    --vert-fonce: #073F33;
+    --vert-clair: #E7F2EE;
+    --accent: #E9852B;
+    --fond: #F3F6F5;
+    --carte: #FFFFFF;
+    --texte: #13241F;
+    --texte-doux: #4A5B56;
+    --bordure: #D3DEDA;
+    --ombre: 0 2px 4px rgba(10, 60, 48, .05), 0 10px 28px rgba(10, 60, 48, .08);
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html, body { background: var(--fond); }
+
+  body {
+    width: 1080px;
+    height: 1350px;
+    overflow: hidden;
+    font-family: "Inter", "Noto Color Emoji", system-ui, sans-serif;
+    color: var(--texte);
+    -webkit-font-smoothing: antialiased;
+  }
+
+  .page {
+    position: relative;
+    width: 1080px;
+    height: 1350px;
+    display: flex;
+    flex-direction: column;
+  }
+
+  /* En-tête */
+  .entete {
+    position: relative;
+    background: var(--vert);
+    color: #fff;
+    flex: none;
+    padding: 48px 64px 78px;
+    overflow: hidden;
+  }
+  .filet {
+    width: 72px;
+    height: 6px;
+    border-radius: 3px;
+    background: var(--accent);
+    margin-bottom: 24px;
+  }
+  h1 {
+    font-family: "Inter Tight", "Inter Display", "Inter", sans-serif;
+    font-weight: 800;
+    font-size: 67px;
+    line-height: 1;
+    letter-spacing: -0.5px;
+    white-space: nowrap;
+  }
+  h1 .l2 { color: #CFEBDF; }
+  .accroche {
+    margin-top: 18px;
+    font-size: 30px;
+    line-height: 1.3;
+    font-weight: 500;
+    color: rgba(255, 255, 255, .92);
+  }
+  /* Logo officiel : remplace le filet orange quand le fichier est fourni */
+  .logo {
+    display: none;
+    width: fit-content;
+    background: #fff;
+    border-radius: 14px;
+    padding: 8px 14px;
+    margin-bottom: 16px;
+  }
+  .logo img { display: block; height: 44px; width: auto; max-width: 300px; object-fit: contain; }
+  .entete.avec-logo { padding-top: 22px; padding-bottom: 58px; }
+  .entete.avec-logo .logo { display: block; }
+  .entete.avec-logo .filet { display: none; }
+  .entete.avec-logo .accroche { margin-top: 14px; }
+
+  /* Questions */
+  .questions {
+    position: relative;
+    z-index: 1;
+    margin-top: -46px;
+    padding: 0 44px;
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+  .carte {
+    background: var(--carte);
+    border-radius: 26px;
+    box-shadow: var(--ombre);
+    padding: 22px 28px 24px;
+  }
+  .carte-tete {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    margin-bottom: 10px;
+  }
+  .num {
+    flex: none;
+    width: 36px;
+    height: 36px;
+    border-radius: 50%;
+    background: var(--vert);
+    color: #fff;
+    font-weight: 700;
+    font-size: 20px;
+    display: grid;
+    place-items: center;
+  }
+  .theme {
+    font-size: 23px;
+    font-weight: 600;
+    color: var(--vert);
+  }
+  .type {
+    margin-left: auto;
+    flex: none;
+    font-size: 19px;
+    font-weight: 500;
+    color: var(--texte-doux);
+    background: var(--fond);
+    border-radius: 999px;
+    padding: 6px 14px;
+  }
+  .question {
+    font-size: 30px;
+    line-height: 1.28;
+    font-weight: 600;
+    margin-bottom: 14px;
+  }
+
+  .options {
+    display: grid;
+    gap: 10px;
+  }
+  .q1 .options { grid-template-columns: auto 1fr; }
+  .q2 .options { grid-template-columns: repeat(3, 1fr); }
+  .q2 .options .large { grid-column: 1 / -1; }
+
+  .option {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    min-height: 58px;
+    padding: 10px 20px;
+    border: 2px solid var(--bordure);
+    border-radius: 16px;
+    font-size: 26px;
+    font-weight: 500;
+    line-height: 1.25;
+    white-space: nowrap;
+  }
+  .option.large { white-space: normal; }
+  .radio {
+    flex: none;
+    width: 26px;
+    height: 26px;
+    border-radius: 50%;
+    border: 2.5px solid var(--vert);
+    background: #fff;
+  }
+  .emo {
+    font-family: "Noto Color Emoji", sans-serif;
+    font-size: 26px;
+    line-height: 1;
+  }
+
+  .zone-reponse {
+    height: 146px;
+    border: 2px solid var(--bordure);
+    border-radius: 16px;
+    background-color: #FBFCFC;
+    background-image: repeating-linear-gradient(to bottom,
+      transparent 0, transparent 43px, var(--bordure) 43px, var(--bordure) 45px);
+    background-size: calc(100% - 48px) 136px;
+    background-position: 24px 0;
+    background-repeat: no-repeat;
+  }
+
+  /* Signature */
+  .signature {
+    margin-top: auto;
+    padding: 0 64px 40px;
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+    gap: 24px;
+  }
+  .merci {
+    font-size: 24px;
+    font-weight: 500;
+    color: var(--texte-doux);
+  }
+  .institution {
+    font-size: 25px;
+    font-weight: 700;
+    color: var(--vert);
+  }
+</style>
+</head>
+<body>
+<main class="page">
+
+  <header class="entete">
+    <div class="logo" id="logo"><img alt="Logo Nouvelle PSP Côte d’Ivoire" id="logo-img"></div>
+    <div class="filet"></div>
+    <h1>VOTRE AVIS <span class="l2">NOUS INTÉRESSE</span></h1>
+    <p class="accroche">Votre avis nous aide à mieux répondre à vos besoins.</p>
+  </header>
+
+  <section class="questions">
+
+    <article class="carte q1">
+      <div class="carte-tete">
+        <span class="num">1</span>
+        <span class="theme">Affiches promotionnelles</span>
+        <span class="type">Choix unique</span>
+      </div>
+      <p class="question">Que pensez-vous des affiches promotionnelles de la Nouvelle PSP Côte d’Ivoire&#8239;?</p>
+      <div class="options">
+        <div class="option"><span class="radio"></span><span class="emo">⭐</span><span>Très satisfaisantes</span></div>
+        <div class="option"><span class="radio"></span><span class="emo">👍</span><span>Satisfaisantes</span></div>
+        <div class="option"><span class="radio"></span><span class="emo">😐</span><span>Moyennement satisfaisantes</span></div>
+        <div class="option"><span class="radio"></span><span class="emo">👎</span><span>Peu satisfaisantes</span></div>
+      </div>
+    </article>
+
+    <article class="carte q2">
+      <div class="carte-tete">
+        <span class="num">2</span>
+        <span class="theme">Force de vente &amp; accompagnement commercial</span>
+        <span class="type">Choix unique</span>
+      </div>
+      <p class="question">Que pensez-vous de la réorganisation de la force de vente et de votre accompagnement commercial&#8239;?</p>
+      <div class="options">
+        <div class="option"><span class="radio"></span><span>Très satisfaisant</span></div>
+        <div class="option"><span class="radio"></span><span>Satisfaisant</span></div>
+        <div class="option"><span class="radio"></span><span>À améliorer</span></div>
+        <div class="option large"><span class="radio"></span><span>Je n’ai pas encore suffisamment d’informations pour me prononcer</span></div>
+      </div>
+    </article>
+
+    <article class="carte q3">
+      <div class="carte-tete">
+        <span class="num">3</span>
+        <span class="theme">Avis, suggestions et attentes</span>
+        <span class="type">Réponse ouverte</span>
+      </div>
+      <p class="question">Avez-vous des avis, suggestions ou attentes à partager pour améliorer nos offres promotionnelles et notre accompagnement commercial&#8239;?</p>
+      <div class="zone-reponse"></div>
+    </article>
+
+  </section>
+
+  <footer class="signature">
+    <span class="merci">Merci pour votre participation.</span>
+    <span class="institution">Nouvelle PSP Côte d’Ivoire</span>
+  </footer>
+
+</main>
+</body>
+</html>
